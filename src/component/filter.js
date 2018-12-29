@@ -57,22 +57,22 @@ class ToneFilter extends ToneBinded {
 				<tone-select-attribute 
 					label="Type"
 					attribute="type">
-						<tone-option value="lowpass">lowpass</tone-option>
-						<tone-option value="highpass">highpass</tone-option>
-						<tone-option value="bandpass">bandpass</tone-option>
-						<tone-option value="lowshelf">lowshelf</tone-option>
-						<tone-option value="highshelf">highshelf</tone-option>
-						<tone-option value="peaking">peaking</tone-option>
-						<tone-option value="notch">notch</tone-option>
-						<tone-option value="allpass">allpass</tone-option>
+						<option value="lowpass">lowpass</option>
+						<option value="highpass">highpass</option>
+						<option value="bandpass">bandpass</option>
+						<option value="lowshelf">lowshelf</option>
+						<option value="highshelf">highshelf</option>
+						<option value="peaking">peaking</option>
+						<option value="notch">notch</option>
+						<option value="allpass">allpass</option>
 				</tone-select-attribute>
 				<tone-select-attribute 
 					label="Rolloff"
 					attribute="rolloff">
-					<tone-option value="-12">-12</tone-option>
-					<tone-option value="-24">-24</tone-option>
-					<tone-option value="-48">-48</tone-option>
-					<tone-option value="-96">-96</tone-option>
+					<option value="-12">-12</option>
+					<option value="-24">-24</option>
+					<option value="-48">-48</option>
+					<option value="-96">-96</option>
 				</tone-select-attribute>
 				${this.frequency ? html`
 					<tone-slider attribute="frequency"

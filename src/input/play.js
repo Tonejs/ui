@@ -1,11 +1,15 @@
 import { LitElement, html } from '@polymer/lit-element'
 import { resume } from '../util/resume'
 
+const playSvg = html`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>`
+const stopSvg = html`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 6h12v12H6z"/></svg>`
+
 class TonePlayToggle extends LitElement {
 
 	static get properties(){
 		return {
 			playing : { type : Boolean },
+			disabled : { type : Boolean },
 		}
 	}
 
@@ -17,6 +21,7 @@ class TonePlayToggle extends LitElement {
 	updated(changed){
 		if (changed.has('playing')){
 			this.dispatchEvent(new CustomEvent('change', { detail : this.playing, composed : true, bubbles : true }))
+			this.dispatchEvent(new CustomEvent('play', { detail : this.playing, composed : true, bubbles : true }))
 		}
 	}
 
@@ -35,8 +40,8 @@ class TonePlayToggle extends LitElement {
 		}, 100)
 	}
 
-	_clicked(){
-		resume()
+	async _clicked(e){
+		await resume(e)
 		this.playing = !this.playing
 	}
 	
@@ -79,20 +84,24 @@ class TonePlayToggle extends LitElement {
 					box-shadow: var(--shadow-medium);
 				}
 
-				button:not([playing]){
-					padding-left: 4px;
+				button[disabled]{
+					opacity: 0.5;
 				}
-				button[playing]{
-					padding-top: 2px;
+
+				button svg {
+					margin-top: 4px;
+					width: 30px;
+					height: 30px;
 				}
 
 			</style>
 			<div id="container">
 				<button 
+					?disabled=${this.disabled}
 					?playing=${this.playing}
 					@click=${this._clicked.bind(this)}
 					aria-label="Play" .aria-checked=${this.playing}>
-					${this.playing ? html`&#x25FC;&#xFE0E;` : html`&#x25B6;&#xFE0E;`}
+					${!this.playing ? playSvg : stopSvg}
 				</button>
 			</div>
 		`

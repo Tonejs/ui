@@ -11,9 +11,9 @@ class ToneContent extends LitElement {
 					width: 100%;
 				}
 				#content {
-					width: 60%;
-					min-width: 300px;
-					max-width: 700px;
+					width: 80%;
+					min-width: 320px;
+					max-width: 600px;
 					margin: 40px auto 60px;
 				}
 

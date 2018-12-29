@@ -24,7 +24,8 @@ export class ToneBinded extends LitElement {
 			const path = e.path || (e.composedPath && e.composedPath())
 			const source = path[0]
 			const attr = source.getAttribute('attribute')
-			if (typeof tone[attr] !== 'undefined'){
+			const currentValue = tone[attr]
+			if (typeof currentValue !== 'undefined'){
 				this.setAttribute(attr, source, tone)
 				this.sync(tone)
 			}
@@ -45,20 +46,20 @@ export class ToneBinded extends LitElement {
 
 	sync(tone){
 		//group/throttle sync changes
+		Array.from(this.shadowRoot.querySelectorAll('[attribute]')).forEach(el => {
+			const attr = el.getAttribute('attribute')
+			if (typeof tone[attr] !== 'undefined'){
+				el.sync(tone)
+			}
+		})
+		Array.from(this.shadowRoot.querySelectorAll('[component]')).forEach(el => {
+			const comp = el.getAttribute('component')
+			if (typeof tone[comp] !== 'undefined'){
+				el.sync(tone[comp])
+			}
+		})
 		clearTimeout(this._syncTimeout)
 		this._syncTimeout = setTimeout(() => {
-			Array.from(this.shadowRoot.querySelectorAll('[attribute]')).forEach(el => {
-				const attr = el.getAttribute('attribute')
-				if (typeof tone[attr] !== 'undefined'){
-					el.sync(tone)
-				}
-			})
-			Array.from(this.shadowRoot.querySelectorAll('[component]')).forEach(el => {
-				const comp = el.getAttribute('component')
-				if (typeof tone[comp] !== 'undefined'){
-					el.sync(tone[comp])
-				}
-			})
 			const visualizations = Array.from(this.shadowRoot.querySelectorAll('.viz'))
 			if (visualizations.length){
 				visualizations.forEach(v => v.visualize(tone))

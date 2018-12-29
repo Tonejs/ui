@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+/*@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');*/
 
 body {
 	--label-font-family: sans-serif;
@@ -22,9 +22,13 @@ body {
 	--shadow-high: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 
 	--default-margin: 8px 0px 0px 0px;
+	--side-panel-width: 240px;
+	--side-panel-transition: 0.2s;
 
 	font-family: var(--body-font-family);
 	font-size: var(--body-font-size);
+	line-height: 1.4em;
+
 }
 
 body #interface {

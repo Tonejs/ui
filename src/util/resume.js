@@ -4,9 +4,9 @@ const silentAudio = 'data:audio/mp3;base64,//MkxAAHiAICWABElBeKPL/RANb2w+yiT1g/g
  * Start hte audio context if it's not already
  * must be called from a click event
  */
-export function resume(){
+export async function resume(e){
 	if (Tone.context.state === 'suspended'){
-		Tone.context.resume()
+		await Tone.context.resume()
 
 		//also play a silent audio file which unmutes iOS
 		const audioElement = document.createElement('audio')
@@ -15,6 +15,10 @@ export function resume(){
 		audioElement.loop = false
 		audioElement.src = silentAudio
 		audioElement.title = 'Tone.js Examples'
-		audioElement.play()
+		try {
+			await audioElement.play()
+		} catch (e){
+			console.log('did not start audio')
+		}
 	}
 }

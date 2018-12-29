@@ -6,6 +6,7 @@ class ToneTrigger extends LitElement {
 	static get properties(){
 		return {
 			triggered : { type : Boolean },
+			disabled : { type : Boolean },
 		}
 	}
 
@@ -22,28 +23,24 @@ class ToneTrigger extends LitElement {
 
 	bind(tone){
 		this.addEventListener('change', e => {
-			console.log(e)
 			if (e.detail){
 				tone.start()
 			} else {
 				tone.stop()
 			}
 		})
-		setInterval(() => {
-			if (tone.state === 'stopped'){
-				this.triggered = false
-			}
-		}, 100)
 	}
 
 	_mousedown(e){
-		e.preventDefault()
-		resume()
+		resume(e)
+		if (e.type === 'touchstart'){
+			e.preventDefault()
+		}
 		this.triggered = true
 	}
 
 	_keydown(e){
-		resume()
+		resume(e)
 		if (e.key === ' ' || e.key === 'Enter'){
 			this.triggered = true
 		}
@@ -130,9 +127,14 @@ class ToneTrigger extends LitElement {
 					height: 0px;
 				}
 
+				button[disabled] {
+					opacity: 0.5;
+				}
+
 			</style>
 			<div id="container">
 				<button 
+					?disabled=${this.disabled}
 					?triggered=${this.triggered}
 					@keydown=${this._keydown.bind(this)}
 					@keyup=${this._keyup.bind(this)}

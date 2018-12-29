@@ -1,10 +1,12 @@
 import { LitElement, html } from '@polymer/lit-element'
 import { ToneSelectAttribute } from '../input/select-attribute'
 
-export class ToneEnvelopeCurve extends ToneSelectAttribute {
+export class ToneEnvelopeCurve extends LitElement {
 
 	static get properties(){
 		return {
+			label : { type : String },
+			attribute : { type : String },
 			basic : { type : Boolean },
 		}
 	}
@@ -14,21 +16,26 @@ export class ToneEnvelopeCurve extends ToneSelectAttribute {
 		this.basic = false
 	}
 
+	sync(node){
+		const val = node[this.attribute]
+		this.shadowRoot.querySelector('tone-select-attribute').value = val
+	}
+
 	render(){
 		let extendedTypes = html``
 		if (!this.basic){
 			extendedTypes = html`
-				<tone-option value="bounce">bounce</tone-option>
-				<tone-option value="ripple">ripple</tone-option>
-				<tone-option value="step">step</tone-option>
-				<tone-option value="cosine">cosine</tone-option>
-				<tone-option value="sine">sine</tone-option>
+				<option value="bounce">bounce</option>
+				<option value="ripple">ripple</option>
+				<option value="step">step</option>
+				<option value="cosine">cosine</option>
+				<option value="sine">sine</option>
 			`
 		}
 		return html`
 			<tone-select-attribute label=${this.label} attribute=${this.attribute}>
-				<tone-option value="linear">linear</tone-option>
-				<tone-option value="exponential">exponential</tone-option>
+				<option value="linear">linear</option>
+				<option value="exponential">exponential</option>
 				${extendedTypes}
 			</div>
 		`

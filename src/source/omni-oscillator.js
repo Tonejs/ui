@@ -50,19 +50,23 @@ export class OmniOscillator extends Oscillator {
 		super.bind(tone)
 	}
 
-	updated(changed){
+	async updated(changed){
 		if (changed.has('sourceType') && this.tone){
 			if (this.tone.sourceType !== this.sourceType){
 				this.tone.sourceType = this.sourceType
-			}
-			//select the select
+				// this.setAttribute('type', )
+				this.sync(this.tone)
+			} 
 			this.shadowRoot.querySelector('#sourceType').value = this.sourceType
+			await this.updateComplete
 			this.sync(this.tone)
+			// this.dispatchEvent(new CustomEvent('change', { detail : this.sourceType, composed : true, bubbles : true }))
 		}
 	}
 
-	sync(tone){
+	async sync(tone){
 		this.sourceType = tone.sourceType
+		await this.updateComplete
 		super.sync(tone)
 	}
 
@@ -73,6 +77,7 @@ export class OmniOscillator extends Oscillator {
 					position: absolute;
 					top: 8px;
 					right: 80px;
+					background-color: white;
 				}
 
 				#attributeContainer {
@@ -82,12 +87,12 @@ export class OmniOscillator extends Oscillator {
 			<tone-select slot="top" 
 				id="sourceType"
 				@change=${e => this.sourceType = e.detail}>
-				<tone-option value="oscillator">basic</tone-option>
-				<tone-option value="fm">fm</tone-option>
-				<tone-option value="am">am</tone-option>
-				<tone-option value="fat">fat</tone-option>
-				<tone-option value="pulse">pulse</tone-option>
-				<tone-option value="pwm">pwm</tone-option>
+				<option value="oscillator">basic</option>
+				<option value="fm">fm</option>
+				<option value="am">am</option>
+				<option value="fat">fat</option>
+				<option value="pulse">pulse</option>
+				<option value="pwm">pwm</option>
 			</tone-select>
 			<div id="attributeContainer">
 				${this._types[this.sourceType].renderAttributes()}

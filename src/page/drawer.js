@@ -49,7 +49,7 @@ class ToneDrawer extends LitElement {
 					left: 0px;
 					overflow-y: auto;
 					background-color: white;
-					z-index: 100000;
+					z-index: 100;
 				}
 
 				button {

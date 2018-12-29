@@ -18,22 +18,25 @@ export class OscillatorTypeSelect extends LitElement {
 
 	sync(node){
 		const val = node[this.attribute]
-		Array.from(this.shadowRoot.querySelectorAll('tone-option')).forEach(el => {
-			const elVal = el.getAttribute('value')
-			if (val.includes(elVal)){
-				this.shadowRoot.querySelector('tone-select-attribute').value = elVal
-			}
-		})
+		const selectAttribute = this.shadowRoot.querySelector('tone-select-attribute')
+		if (selectAttribute){
+			selectAttribute.options.forEach(el => {
+				const elVal = el.getAttribute('value')
+				if (val.includes(elVal)){
+					this.shadowRoot.querySelector('tone-select-attribute').value = elVal
+				}
+			})
+		}
 	}
 
 	render(){
 		return html`
 			<tone-select-attribute label=${this.label} attribute=${this.attribute}>
-				<tone-option value="sine">sine</tone-option>
-				<tone-option value="square">square</tone-option>
-				<tone-option value="sawtooth">sawtooth</tone-option>
-				<tone-option value="triangle">triangle</tone-option>
-				${!this.nocustom ? html`<tone-option value="custom">custom</tone-option>` : html``}
+				<option value="sine">sine</option>
+				<option value="square">square</option>
+				<option value="sawtooth">sawtooth</option>
+				<option value="triangle">triangle</option>
+				${!this.nocustom ? html`<option value="custom">custom</option>` : html``}
 			</tone-select-attribute>
 		`
 	}

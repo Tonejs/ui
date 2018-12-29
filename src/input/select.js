@@ -6,13 +6,20 @@ export class ToneSelect extends LitElement {
 	static get properties(){
 		return {
 			label : { type : String },
-			attribute : { type : String }
+			attribute : { type : String },
 		}
 	}
 
 	constructor(){
 		super()
-		this._observer = new FlattenedNodesObserver(this, () => this.requestUpdate())
+		this.options = []
+		this._observer = new FlattenedNodesObserver(this, (e) => {
+			this.options = [...this.options, ...e.addedNodes.filter(el => el.nodeName.toLowerCase() === 'option')]
+			/*e.removedNodes.forEach(node => {
+				const removedElement = 
+			})*/
+			this.requestUpdate()
+		})
 	}
 
 	get selectedIndex(){
@@ -27,11 +34,11 @@ export class ToneSelect extends LitElement {
 	}
 
 	get value(){
-		return this.children[this.selectedIndex].getAttribute('value')
+		return this.options[this.selectedIndex].getAttribute('value')
 	}
 
 	set value(s){
-		const index = Array.from(this.children).findIndex(i => i.getAttribute('value') === s.toString())
+		const index = this.options.findIndex(i => i.getAttribute('value') === s.toString())
 		if (index !== -1){
 			this.selectedIndex = index
 		}
@@ -78,8 +85,8 @@ export class ToneSelect extends LitElement {
 				}
 			</style>
 			<div id="container">
-				<select @change=${() => this.dispatchEvent(new CustomEvent('change', { detail : this.value }))}>
-					${Array.from(this.children).map(el => html`<option value=${el.value}>${el.textContent}</option> `)}
+				<select @change=${() => this.dispatchEvent(new CustomEvent('change', { detail : this.value, composed : true, bubbles : true }))}>
+					${this.options}
 				</select>
 				<div id="arrow">▼</div>
 			</div>

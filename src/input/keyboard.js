@@ -54,7 +54,7 @@ class ToneKeyboardNote extends LitElement {
 	}
 
 	keydown(e){
-		resume()
+		resume(e)
 		if (!e.repeat && (e.key === ' ' || e.key === 'Enter')){
 			this.active = true
 		}
@@ -281,14 +281,12 @@ export class ToneKeyboard extends LitElement {
 		Array.from(event.changedTouches).forEach(e => {
 			this._getNoteByTouchId(e.identifier)
 			const activeNote = this._getNoteByTouchId(e.identifier)
-			if (activeNote && activeNote.active){
-				activeNote.active = false
-				activeNote.touchid = -1
-			}
 			const element = this.shadowRoot.elementFromPoint(e.clientX, e.clientY)
 			if (element && element.shadowRoot){
 				const note = element.shadowRoot.elementFromPoint(e.clientX, e.clientY)
-				if (note && note.note){
+				if (note && note.note && activeNote.note !== note.note){
+					activeNote.active = false
+					activeNote.touchid = -1
 					note.active = true
 					note.touchid = e.identifier
 				}

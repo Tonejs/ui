@@ -14,10 +14,10 @@ class ToneVizOscillator extends ToneOfflineViz {
 		//generate one cycle
 		const options = oscillator.get()
 		const buffer = await global.Tone.Offline(() => {
-			const clone = new oscillator.constructor()
-			clone.set(options)
+			const clone = new oscillator.constructor(options)
 			clone.frequency.value = 200	
 			clone.detune.value = 0
+			clone.volume.value = 0
 			clone.toMaster().start(0).stop(0.005)
 		}, 0.005)
 		this.buffer = buffer.toArray(0)

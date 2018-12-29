@@ -38,7 +38,7 @@ class ToneMic extends ToneBinded {
 		const micSelect = this.shadowRoot.querySelector('tone-select')
 
 		this.shadowRoot.querySelector('#mic').addEventListener('click', e => {
-			resume()
+			resume(e)
 			if (!this.open){
 				tone.open(micSelect.value)
 			} else {
@@ -122,7 +122,7 @@ class ToneMic extends ToneBinded {
 				${this.supported ? html`
 					<tone-select>
 						${this.inputs.map(i => html`
-							<tone-option value=${i.deviceId}>${i.label}</tone-option>
+							<option value=${i.deviceId}>${i.label}</option>
 						`)}
 					</tone-select>
 					<tone-oscilloscope></tone-oscilloscope>

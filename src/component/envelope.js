@@ -61,7 +61,8 @@ export class ToneEnvelope extends ToneBinded {
 				<tone-slider 
 					attribute="attack"
 					min="0.01" 
-					max="1" 
+					max="2" 
+					exp="2"
 					value="0.01" 
 					label="Attack">
 				</tone-slider>
@@ -72,7 +73,8 @@ export class ToneEnvelope extends ToneBinded {
 				<tone-slider 
 					attribute="decay"
 					min="0.01" 
-					max="1" 
+					max="2" 
+					exp="2"
 					value="0.01" 
 					label="Decay">
 				</tone-slider>
@@ -91,7 +93,8 @@ export class ToneEnvelope extends ToneBinded {
 				<tone-slider 
 					attribute="release"
 					min="0.01" 
-					max="3" 
+					max="4" 
+					exp="2"
 					value="0.01" 
 					label="Release">
 				</tone-slider>

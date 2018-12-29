@@ -1,5 +1,8 @@
 import { LitElement, html } from '@polymer/lit-element'
 
+const arrowRight = html`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10z"/><path fill="none" d="M0 24V0h24v24H0z"/></svg>`
+const arrowDown = html`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>`
+
 class ToneRack extends LitElement {
 
 	static get properties(){
@@ -58,13 +61,12 @@ class ToneRack extends LitElement {
 				}
 				button {
 					position: absolute;
-					top: 18px;
-					left: 18px;
+					top: 20px;
+					left: 12px;
 					border: none;
 					-webkit-appearance: none;
-					width: 10px;
-					height: 10px;
-					text-align: left;
+					width: 24px;
+					height: 24px;
 					margin: 0;
 					padding: 0;
 					transform: translate(0, -50%);
@@ -87,6 +89,7 @@ class ToneRack extends LitElement {
 					background-color: #eee;
 					padding: 30px 5px 5px 5px;
 					border-color: #eee;
+					min-width: 310px;
 				}
 
 				#padding {
@@ -123,7 +126,7 @@ class ToneRack extends LitElement {
 						@keydown=${this._keydown.bind(this)}
 						@click=${() => this.collapsed = !this.collapsed}
 						aria-label='collapse menu'
-						role="checkbox" aria-checked="${this.collapsed}">${!this.collapsed ? html`&#x25BC;&#xFE0E;` : html`&#x25B6;&#xFE0E;`}</button>` : html``}
+						role="checkbox" aria-checked="${this.collapsed}">${this.collapsed ? arrowRight : arrowDown}</button>` : html``}
 				<h2 id="label">${this.label}</h2>
 				<div id="padding"></div>
 				<slot name="top"></slot>

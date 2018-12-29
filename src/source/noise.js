@@ -33,9 +33,9 @@ class ToneNosie extends ToneBinded {
 				<tone-select-attribute
 					attribute="type"
 					label="Type">
-					<tone-option value="white">white</tone-option>
-					<tone-option value="brown">brown</tone-option>
-					<tone-option value="pink">pink</tone-option>
+					<option value="white">white</option>
+					<option value="brown">brown</option>
+					<option value="pink">pink</option>
 				</tone-select-attribute>
 				<tone-slider 
 					min="0.1"

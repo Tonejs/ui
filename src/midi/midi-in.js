@@ -122,9 +122,9 @@ export class ToneMidiIn extends LitElement {
 					<label>MIDI</label>
 					<tone-select
 						@change=${this._connectMidi.bind(this)}>
-						<tone-option value="none">none</tone-option>
+						<option value="none">none</option>
 						${WebMidi.inputs.map(input => html`
-							<tone-option value=${input.id}>${input.name}</tone-option>
+							<option value=${input.id}>${input.name}</option>
 						`)}
 					</tone-select>
 				</div>

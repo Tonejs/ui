@@ -92,6 +92,7 @@ class ToneGrainPlayer extends ToneBinded {
 					anchor="center"
 					value="0"
 					label="Detune"
+					units="cents"
 					attribute="detune">
 				</tone-slider>
 				<tone-slider 

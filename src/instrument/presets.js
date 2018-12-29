@@ -1,5 +1,6 @@
 import { LitElement, html } from '@polymer/lit-element'
-import ClipboardJS from 'clipboard'
+// import ClipboardJS from 'clipboard'
+import nestedObjectAssign from 'nested-object-assign'
 
 class TonePresets extends LitElement {
 
@@ -19,13 +20,12 @@ class TonePresets extends LitElement {
 
 	bind(tone){
 		this.addEventListener('preset', e => {
-			tone.set(e.detail)
-			this.dispatchEvent(new CustomEvent('sync', { detail : e.detail, composed : true, bubbles : true }))
-
-			setTimeout(() => {
-				tone.set(e.detail)
-				this.dispatchEvent(new CustomEvent('sync', { detail : e.detail, composed : true, bubbles : true }))
-			}, 50)
+			const clone = new tone.constructor()
+			const defaults = clone.get()
+			clone.dispose()
+			const detail = nestedObjectAssign({}, defaults, e.detail)
+			tone.set(detail)
+			this.dispatchEvent(new CustomEvent('sync', { detail : detail, composed : true, bubbles : true }))
 		})
 
 		/*this._clipboard = new ClipboardJS(this.shadowRoot.querySelector('#copy'), {
@@ -111,7 +111,7 @@ class TonePresets extends LitElement {
 							<button @click=${e => this._clicked(e, p)}>
 								${(i+1).toString()}
 							</button>`)}
-						<button id="copy">copy</button>
+						<!--button id="copy">copy</button-->
 					</div>
 				</div>
 			`

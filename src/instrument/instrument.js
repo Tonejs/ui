@@ -14,6 +14,7 @@ export class ToneInstrument extends ToneBinded {
 		return {
 			label : { type : String },
 			presets : { type : String },
+			nopresets : { type : Boolean },
 			collapsed : { type : Boolean },
 			effect : { type : Boolean },
 			polyphonic : { type : Boolean },
@@ -39,6 +40,13 @@ export class ToneInstrument extends ToneBinded {
 			super.bind(tone)
 		}
 	}
+
+	/*sync(tone){
+		if (this.polyphonic){
+			console.log('hi!')
+		}
+		super.sync(tone)
+	}*/
 
 	renderAttributes(){
 		return html``
@@ -76,7 +84,7 @@ export class ToneInstrument extends ToneBinded {
 					margin-top: 15px;
 				}
 
-				tone-slider, tone-oscillator-type {
+				tone-slider, tone-oscillator-type, tone-select-attribute {
 					width: 90%;
 					min-width: 300px;
 					display: block;
@@ -102,15 +110,22 @@ export class ToneInstrument extends ToneBinded {
 					margin: 0;
 					width: calc(100% - 64px);
 					min-width: unset;
+					float: right;
 				}
 
 				label {
 					position: relative;
-					top: -5px;
+					top: 10px;
 					width: 60px;
 					display: inline-block;
 					font-family: var(--label-font-family);
 					font-size: var(--label-font-size);
+				}
+
+				@media only screen and (max-width: 600px) {
+					#drywet label {
+						display: none;
+					}
 				}
 
 			</style>
@@ -120,7 +135,7 @@ export class ToneInstrument extends ToneBinded {
 				<div id="attributeContainer">
 					${this.renderAttributes()}
 				</div>
-				<tone-presets presets=${this.presets}></tone-presets>
+				${!this.nopresets ? html`<tone-presets presets=${this.presets}></tone-presets>` : html``}
 			</tone-rack square>
 		`
 	}

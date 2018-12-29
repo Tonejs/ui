@@ -17,7 +17,6 @@ class ToneSlider extends LitElement {
 			integer : { type : Boolean },
 			attribute : { type : String },
 			bare : { type : Boolean },
-			thumbwidth : { type : Number }
 		}
 	}
 
@@ -31,7 +30,6 @@ class ToneSlider extends LitElement {
 		this.anchor = 'left'
 		this.integer = false
 		this.bare = false
-		this.thumbwidth = 20
 		this._setThrottle = -1
 	}
 
@@ -44,6 +42,7 @@ class ToneSlider extends LitElement {
 			val = Math.round(val)
 		}
 		this.value = val
+		this.dispatchEvent(new CustomEvent('input', { composed : true, detail : this.value }))
 	}
 
 	_exp(val, exp){
@@ -60,7 +59,7 @@ class ToneSlider extends LitElement {
 		const diff = Math.abs(this.min - this.max)
 		if (diff > 10 || this.integer){
 			return this.value.toFixed(0)
-		} else if (diff > 1){
+		} else if (diff > 1 && this.exp === 1){
 			return this.value.toFixed(1)
 		} else {
 			return this.value.toFixed(2)
@@ -77,17 +76,16 @@ class ToneSlider extends LitElement {
 	}
 
 	set(tone){
-		clearTimeout(this._setThrottle)
-		this._setThrottle = setTimeout(() => {
-			const attr = this.attribute
-			if (isFinite(this.value)){
-				if (typeof tone[attr].value !== 'undefined'){
+		const attr = this.attribute
+		if (isFinite(this.value)){
+			if (typeof tone[attr].value !== 'undefined'){
+				if (tone[attr].value !== this.value){
 					tone[attr].value = this.value
-				} else {
-					tone[attr] = this.value
 				}
+			} else if (tone[attr] !== this.value){
+				tone[attr] = this.value
 			}
-		}, 1)
+		}
 	}
 
 	updated(changed){
@@ -111,7 +109,7 @@ class ToneSlider extends LitElement {
 	}
 
 	render(){
-		const logPos = this._logPosition()
+		const logPos = Math.clamp(this._logPosition(), 0, 100)
 		let fillWidth = logPos-1
 		let anchorLeft = 0
 		if (this.anchor === 'center'){
@@ -143,7 +141,7 @@ class ToneSlider extends LitElement {
 					<div id="line">
 						<div id="anchor" class=${this.anchor} style="width:${fillWidth.toString()}%; left:${anchorLeft.toString()}%"></div>
 					</div>
-					<div id="circle" style="left: calc(${(logPos-1).toString()}% - ${(this.thumbwidth*(logPos-1) / 100).toString()}px);"></div>
+					<div id="circle" style="left: calc(${(logPos-1).toString()}% - ${(12*(logPos-1) / 100).toString()}px);"></div>
 				</div>
 			</div>
 		`

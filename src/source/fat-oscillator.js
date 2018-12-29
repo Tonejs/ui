@@ -11,12 +11,7 @@ export class FatOscillator extends Oscillator {
 
 	renderAttributes(){
 		return html`
-
-			<tone-oscillator-type 
-				nocustom
-				label="Type"
-				attribute="type">
-			</tone-oscillator-type>
+			${super.renderAttributes()}
 			<tone-slider 
 				attribute="spread"
 				min="2" 
@@ -31,7 +26,7 @@ export class FatOscillator extends Oscillator {
 				integer
 				value="2"
 				min="1" 
-				max="4" 
+				max="10" 
 				label="Count">
 			</tone-slider>
 			
