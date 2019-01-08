@@ -66,6 +66,17 @@ class ToneSlider extends LitElement {
 		}
 	}
 
+	_getStep(){
+		const diff = Math.abs(this.min - this.max)
+		if (diff > 10 || this.integer){
+			return 1
+		} else if (diff > 1 && this.exp === 1){
+			return 0.1
+		} else {
+			return 0.01
+		}
+	}
+
 	sync(tone){
 		const attr = this.attribute
 		if (typeof tone[attr].value !== 'undefined'){
@@ -96,6 +107,13 @@ class ToneSlider extends LitElement {
 				detail : this.value, 
 				bubbles : true,
 			}))
+			if (this.attribute){
+				this.dispatchEvent(new CustomEvent(this.attribute, { 
+					composed : true, 
+					detail : this.value, 
+					bubbles : true,
+				}))
+			}
 		}
 	}
 
@@ -127,7 +145,7 @@ class ToneSlider extends LitElement {
 					@change=${this._numberInput.bind(this)}
 					.min=${this.min}
 					.max=${this.max}
-					.step=${this.step}
+					.step=${this._getStep()}
 					.value=${this._beautifyVal()}>
 				<div id="slider">
 					<input name="value" type="range"

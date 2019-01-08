@@ -28,6 +28,10 @@
 		outline-offset: 1px;
 		width: 70px;
 		background-color: transparent;
+
+		&:invalid{
+			box-shadow: none;
+		}
 	}
 
 	#units {

@@ -1,35 +1,40 @@
 import { FlattenedNodesObserver } from '@polymer/polymer/lib/utils/flattened-nodes-observer.js'
 import { LitElement, html } from '@polymer/lit-element'
 
+const arrowDown = html`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>`
+
 export class ToneSelect extends LitElement {
 
 	static get properties(){
 		return {
-			label : { type : String },
-			attribute : { type : String },
+			selectedIndex : { type : Number },
+			attribute : { type : String }
 		}
 	}
 
 	constructor(){
 		super()
+		this.selectedIndex = -1
 		this.options = []
 		this._observer = new FlattenedNodesObserver(this, (e) => {
 			this.options = [...this.options, ...e.addedNodes.filter(el => el.nodeName.toLowerCase() === 'option')]
-			/*e.removedNodes.forEach(node => {
-				const removedElement = 
-			})*/
+			if (this.options.length && this.selectedIndex === -1){
+				this.selectedIndex = 0
+			}
 			this.requestUpdate()
 		})
 	}
 
-	get selectedIndex(){
-		return this.shadowRoot.querySelector('select').selectedIndex
-	}
-
-	set selectedIndex(i){
-		if (this.shadowRoot.querySelector('select')){
-			this.shadowRoot.querySelector('select').selectedIndex = i
-			this.requestUpdate()
+	updated(changed){
+		if (changed.has('selectedIndex') && this.selectedIndex !== -1){
+			const select = this.shadowRoot.querySelector('select')
+			this.dispatchEvent(new CustomEvent('change', { detail : this.value, composed : true, bubbles : true }))
+			if (select){
+				select.selectedIndex = this.selectedIndex
+			}
+			if (this.attribute){
+				this.dispatchEvent(new CustomEvent(this.attribute, { detail : this.value, composed : true, bubbles : true }))
+			}
 		}
 	}
 
@@ -42,6 +47,10 @@ export class ToneSelect extends LitElement {
 		if (index !== -1){
 			this.selectedIndex = index
 		}
+	}
+
+	sync(node){
+		this.value = node[this.attribute]
 	}
 
 	render(){
@@ -74,8 +83,8 @@ export class ToneSelect extends LitElement {
 				}
 				#arrow {
 					position: absolute;
-					right: 8px;
-					top: 8px;
+					right: 15px;
+					top: 0px;
 					width: 10px;
 					height: 10px;
 					font-size: 8px;
@@ -83,12 +92,16 @@ export class ToneSelect extends LitElement {
 					pointer-events: none;
 					line-height: 12px;
 				}
+
+				#arrow svg {
+					fill: var(--border-color, var(--color-gray));
+				}
 			</style>
 			<div id="container">
-				<select @change=${() => this.dispatchEvent(new CustomEvent('change', { detail : this.value, composed : true, bubbles : true }))}>
+				<select @change=${e => this.selectedIndex = e.target.selectedIndex}>
 					${this.options}
 				</select>
-				<div id="arrow">▼</div>
+				<div id="arrow">${arrowDown}</div>
 			</div>
 		`
 	}
