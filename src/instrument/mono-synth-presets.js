@@ -56,8 +56,8 @@ export const presets = [
 		oscillator : {
 			type : 'fmsquare5',
 			modulationType : 'triangle',
-      		modulationIndex : 2,
-      		harmonicity : 0.501
+			modulationIndex : 2,
+			harmonicity : 0.501
 		},
 		filter : {
 			Q : 1,

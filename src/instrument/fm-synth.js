@@ -1,5 +1,5 @@
 import { LitElement, html } from '@polymer/lit-element'
-import '../source/omni-oscillator'
+import '../source/oscillator'
 import '../component/envelope'
 import '../input/slider'
 import { ToneInstrument } from './instrument'
@@ -36,16 +36,17 @@ class ToneFMSynth extends ToneInstrument {
 				component="envelope"
 				collapsed 
 				label="Carrier Envelope"></tone-envelope>
-			<tone-omni-oscillator 
+			<tone-oscillator 
+				omni
 				component="oscillator"
-				collapsed label="Carrier Oscillator"></tone-omni-oscillator>
+				collapsed label="Carrier Oscillator"></tone-oscillator>
 			<tone-envelope 
 				component="modulationEnvelope"
 				collapsed 
 				label="Modulation Envelope"></tone-envelope>
-			<tone-omni-oscillator 
+			<tone-oscillator 
 				component="modulation"
-				collapsed label="Modulation Oscillator"></tone-omni-oscillator>
+				collapsed label="Modulation Oscillator"></tone-oscillator>
 		`
 	}
 

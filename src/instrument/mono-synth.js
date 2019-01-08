@@ -1,5 +1,5 @@
 import { LitElement, html } from '@polymer/lit-element'
-import '../source/omni-oscillator'
+import '../source/oscillator'
 import '../component/envelope'
 import '../component/frequency-envelope'
 import '../rack/rack'
@@ -26,9 +26,10 @@ class ToneMonoSynth extends ToneInstrument {
 				component="envelope" 
 				collapsed 
 				label="Envelope"></tone-envelope>
-			<tone-omni-oscillator 
+			<tone-oscillator 
+				omni
 				component="oscillator" 
-				class="rack" collapsed label="Oscillator"></tone-omni-oscillator>
+				class="rack" collapsed label="Oscillator"></tone-oscillator>
 			<tone-filter 
 				component="filter"
 				class="rack" collapsed label="Filter"></tone-filter>

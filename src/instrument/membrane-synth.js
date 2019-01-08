@@ -26,10 +26,11 @@ class ToneMembraneSynth extends ToneInstrument {
 				min="0.5"
 				max="6"
 				value="1.5"></tone-slider>
-			<tone-omni-oscillator 
+			<tone-oscillator 
+				omni
 				component="oscillator" 
 				collapsed 
-				label="Oscillator"></tone-omni-oscillator>
+				label="Oscillator"></tone-oscillator>
 			<tone-envelope 
 				component="envelope" 
 				collapsed 

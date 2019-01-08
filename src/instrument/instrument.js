@@ -1,5 +1,5 @@
 import { LitElement, html } from '@polymer/lit-element'
-import '../source/omni-oscillator'
+import '../source/oscillator'
 import '../component/envelope'
 import '../component/frequency-envelope'
 import '../rack/rack'
@@ -40,13 +40,6 @@ export class ToneInstrument extends ToneBinded {
 			super.bind(tone)
 		}
 	}
-
-	/*sync(tone){
-		if (this.polyphonic){
-			console.log('hi!')
-		}
-		super.sync(tone)
-	}*/
 
 	renderAttributes(){
 		return html``

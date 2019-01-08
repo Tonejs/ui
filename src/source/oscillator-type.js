@@ -14,10 +14,12 @@ export class OscillatorTypeSelect extends LitElement {
 	constructor(){
 		super()
 		this.nocustom = false
+		this.value = 'sine'
 	}
 
 	sync(node){
 		const val = node[this.attribute]
+		this.value = val
 		const selectAttribute = this.shadowRoot.querySelector('tone-select-attribute')
 		if (selectAttribute){
 			selectAttribute.options.forEach(el => {
@@ -28,6 +30,14 @@ export class OscillatorTypeSelect extends LitElement {
 			})
 		}
 	}
+
+	/*get value(){
+		return this.shadowRoot.querySelector('tone-select-attribute').value
+	}
+
+	set value(v){
+		this.shadowRoot.querySelector('tone-select-attribute').value = v
+	}*/
 
 	render(){
 		return html`
