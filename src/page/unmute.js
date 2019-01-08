@@ -61,11 +61,17 @@ class ToneUnmute extends ToneBinded {
 			<style>
 				:host {
 					display: block;
+					position: fixed;
+					top: 10px;
+					right: 10px;
 				}
 
 				#container {
+					position: absolute;
 					width: 44px;
 					height: 44px;
+					right: 0px;
+					top: 0px;
 					border-radius: 24px;
 					border: 2px solid black;
 					background-color: white;
@@ -85,8 +91,8 @@ class ToneUnmute extends ToneBinded {
 
 				tone-slider {
 					position: absolute;
-					left: 20px;
-					top: 4px;
+					left: 16px;
+					top: 2px;
 					width: 0px;
 					opacity: 0;
 					transition: width 0.2s, opacity 0.2s;;
@@ -94,8 +100,8 @@ class ToneUnmute extends ToneBinded {
 
 				#speaker {
 					position: absolute;
-					top: 12px;
-					right: 12px;
+					top: 10px;
+					right: 10px;
 					background-color: transparent;
 					outline-color: var(--outline-color);
 					border: none;
