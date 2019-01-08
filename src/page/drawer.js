@@ -54,7 +54,7 @@ class ToneDrawer extends LitElement {
 
 				button {
 					padding: 0px;
-					width: 24px;
+					width: calc(100% - 24px);
 					-webkit-appearance: none;
 					background-color: white;
 					border: none;
@@ -64,7 +64,8 @@ class ToneDrawer extends LitElement {
 				}
 
 				button svg {
-					width: 100%;
+					width: 24px;
+					float: left;
 					height: 100%;
 				}
 
@@ -95,8 +96,9 @@ class ToneDrawer extends LitElement {
 					display: inline-block;
 					position: absolute;
 					margin: 0px;
-					top: 13px;
+					top: 12px;
 					left: 50px;
+					pointer-events: none;
 				}
 
 				::slotted(*) {
