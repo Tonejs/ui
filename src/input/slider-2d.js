@@ -1,33 +1,18 @@
 import { LitElement, html } from '@polymer/lit-element'
-import Nexus from 'nexusui'
-window.Nexus = Nexus
 
 export class ToneStepSequencer extends LitElement {
 
-	firstUpdated(){
-		super.firstUpdated()
-		const container = this.shadowRoot.querySelector('#container')
-		const slider = this.shadowRoot.querySelector('#slider')
-		this._slider = new Nexus.Position(slider, {
-			size : [container.clientWidth, container.clientHeight],
-			mode : 'absolute',
-		})
-		this._slider.colorize('accent', '#22DBC0')
-		this._slider.colorize('mediumLight', '#000')
-		window.addEventListener('resize', this._resize.bind(this))
-		setTimeout(() => this._resize(), 10)
+	static get properties(){
+		return {
+			x : { type : Number },
+			y : { type : Number }
+		}
+	}
 
-		this._slider.on('change', e => {
-			this.dispatchEvent(new CustomEvent('change', { detail : e, composed : true }))
-		})
-
-		this._slider.on('click', () => {
-			this.dispatchEvent(new CustomEvent('mousedown', { composed : true }))
-		})
-
-		this._slider.on('release', () => {
-			this.dispatchEvent(new CustomEvent('mouseup', { composed : true }))
-		})
+	constructor(){
+		super()
+		this.x = 0.5
+		this.y = 0.5
 	}
 
 	_resize(){
@@ -35,8 +20,60 @@ export class ToneStepSequencer extends LitElement {
 		this._slider.resize(container.clientWidth, container.clientHeight)
 	}
 
-	get currentColumn(){
-		return this._slider.matrix.pattern.map(row => row[this.highlight])
+	_getXY(e){
+		e.stopPropagation()
+		e.preventDefault()
+		const { clientWidth, clientHeight } = this.shadowRoot.querySelector('#container')
+		let offsetX = e.offsetX
+		let offsetY = e.offsetY
+		if (e.changedTouches){
+			const { top, left } = this.getBoundingClientRect()
+			//just use the first touch
+			offsetX = e.changedTouches[0].clientX - left
+			offsetY = e.changedTouches[0].clientY - top			
+		}
+		return {
+			x : Math.clamp(offsetX / clientWidth, 0, 1),
+			y : 1 - Math.clamp(offsetY / clientHeight, 0, 1)
+		}
+	}
+
+	_mousedown(e){
+		const { x, y } = this._getXY(e)
+		this.x = x
+		this.y = y
+		this.dispatchEvent(new CustomEvent('mousedown', { detail : {
+			x : this.x, 
+			y : this.y
+		}, composed : true }))
+	}
+
+	_mouseup(e){
+		const { x, y } = this._getXY(e)
+		this.x = x
+		this.y = y
+		this.dispatchEvent(new CustomEvent('mouseup', { detail : {
+			x : this.x, 
+			y : this.y
+		}, composed : true }))
+	}
+
+	_mousemove(e){
+		if (e.buttons || e.changedTouches){
+			const { x, y } = this._getXY(e)
+			this.x = x
+			this.y = y
+			this.dispatchEvent(new CustomEvent('change', { detail : {
+				x : this.x, 
+				y : this.y
+			}, composed : true }))
+		}
+	}
+
+	_mouseleave(e){
+		if (e.buttons){
+			this._mouseup(e)
+		}
 	}
 
 	render(){
@@ -50,10 +87,32 @@ export class ToneStepSequencer extends LitElement {
 				#container {
 					width: 100%;
 					height: 100%;
+					background-color: var(--color-light-gray);
+					position: relative;
+					overflow: hidden;
+				}
+
+				#circle {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					width: 30px;
+					height: 30px;
+					border-radius: 50%;
+					background-color: var(--color-teal);
+					pointer-events: none;
 				}
 			</style>
-			<div id="container">
-				<div id="slider">
+			<div id="container" 
+				@mouseup=${this._mouseup.bind(this)}
+				@touchend=${this._mouseup.bind(this)}
+				@mousedown=${this._mousedown.bind(this)}
+				@touchstart=${this._mousedown.bind(this)}
+				@mousemove=${this._mousemove.bind(this)}
+				@touchmove=${this._mousemove.bind(this)}
+				@mouseleave=${this._mouseleave.bind(this)}>
+				<div id="circle" style="left : ${(this.x * 100).toString()}% ; top : ${((1-this.y) * 100).toString()}%">
 				</div>
 			</div>
 		`

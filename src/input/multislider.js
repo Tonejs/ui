@@ -1,5 +1,4 @@
 import { LitElement, html } from '@polymer/lit-element'
-import { Multislider as NexusMultislider } from 'nexusui'
 
 class Multislider extends LitElement {
 
@@ -59,6 +58,13 @@ class Multislider extends LitElement {
 				detail : this.value,
 				composed : true
 			}))
+			if (this.attribute){
+				this.dispatchEvent(new CustomEvent(this.attribute, { 
+					composed : true, 
+					detail : this.value, 
+					bubbles : true,
+				}))
+			}
 		}
 	}
 
@@ -73,7 +79,7 @@ class Multislider extends LitElement {
 				#container {
 					position: relative;
 					width: 100%;
-					height: 40px;
+					height: 55px;
 					display: block;
 					background-color: #eee;
 					margin-top: 5px;
@@ -108,7 +114,7 @@ class Multislider extends LitElement {
 				@mousemove=${this.mousedown}>
 				${values.map(v => html`
 					<span class="slider">
-						<div class="fill" style="height : ${(v * 100).toString()}%"></div>
+						<div class="fill" style="height : ${Math.ceil(v * 100).toString()}%"></div>
 					</span>
 				`)}
 			</div>
