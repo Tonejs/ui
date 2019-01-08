@@ -18,17 +18,23 @@ export class ToneBinded extends LitElement {
 		source.set(tone)
 	}
 
+	/**
+	 * Bind any interface changes with the Tone.js object
+	 */
 	bind(tone){
-		this.addEventListener('change', (e) => {
-			e.stopPropagation()
-			const path = e.path || (e.composedPath && e.composedPath())
-			const source = path[0]
-			const attr = source.getAttribute('attribute')
-			const currentValue = tone[attr]
-			if (typeof currentValue !== 'undefined'){
-				this.setAttribute(attr, source, tone)
+
+		Array.from(this.shadowRoot.querySelectorAll('[attribute]')).forEach(el => {
+			const attr = el.getAttribute('attribute')
+			this.addEventListener(attr, e => {
+				if (global.Tone.isDefined(tone[attr])){
+					if (global.Tone.isDefined(tone[attr].value)){
+						tone[attr].value = e.detail
+					} else {
+						tone[attr] = e.detail
+					}
+				}
 				this.sync(tone)
-			}
+			})
 		})
 		
 		Array.from(this.shadowRoot.querySelectorAll('[component]')).forEach(el => {
@@ -44,8 +50,10 @@ export class ToneBinded extends LitElement {
 		this.addEventListener('sync', () => this.sync(tone))
 	}
 
+	/**
+	 * Synchronize all of the interface with the Tone.js object
+	 */
 	sync(tone){
-		//group/throttle sync changes
 		Array.from(this.shadowRoot.querySelectorAll('[attribute]')).forEach(el => {
 			const attr = el.getAttribute('attribute')
 			if (typeof tone[attr] !== 'undefined'){
@@ -58,6 +66,7 @@ export class ToneBinded extends LitElement {
 				el.sync(tone[comp])
 			}
 		})
+		//group/throttle sync changes
 		clearTimeout(this._syncTimeout)
 		this._syncTimeout = setTimeout(() => {
 			const visualizations = Array.from(this.shadowRoot.querySelectorAll('.viz'))
