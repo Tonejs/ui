@@ -21,6 +21,14 @@ export class ToneEnvelopeCurve extends LitElement {
 		this.shadowRoot.querySelector('tone-select-attribute').value = val
 	}
 
+	get value(){
+		return this.shadowRoot.querySelector('tone-select-attribute').value
+	}
+
+	set value(v){
+		this.shadowRoot.querySelector('tone-select-attribute').value = v
+	}
+
 	render(){
 		let extendedTypes = html``
 		if (!this.basic){
@@ -33,7 +41,8 @@ export class ToneEnvelopeCurve extends LitElement {
 			`
 		}
 		return html`
-			<tone-select-attribute label=${this.label} attribute=${this.attribute}>
+			<tone-select-attribute 
+				label=${this.label} attribute=${this.attribute}>
 				<option value="linear">linear</option>
 				<option value="exponential">exponential</option>
 				${extendedTypes}
