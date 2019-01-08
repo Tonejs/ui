@@ -1,6 +1,5 @@
 import './theme.css'
 
-import './source/omni-oscillator'
 import './source/oscillator'
 import './source/player'
 import './source/noise'
@@ -46,7 +45,7 @@ import './viz/fft'
 import './viz/loop'
 
 import './effect/chorus'
-import './effect/chebychev'
+import './effect/chebyshev'
 import './effect/freeverb'
 import './effect/tremolo'
 import './effect/auto-filter'

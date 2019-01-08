@@ -1,11 +1,11 @@
 import { LitElement, html } from '@polymer/lit-element'
 import { ToneEffect } from './effect'
 
-class ToneChebychev extends ToneEffect {
+class ToneChebyshev extends ToneEffect {
 
 	constructor(){
 		super()
-		this.label = 'Chebychev'
+		this.label = 'Chebyshev'
 	}
 
 	renderAttributes(){
@@ -22,4 +22,4 @@ class ToneChebychev extends ToneEffect {
 	
 }
 
-customElements.define('tone-chebychev', ToneChebychev)
+customElements.define('tone-chebyshev', ToneChebyshev)
