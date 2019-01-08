@@ -19,6 +19,10 @@ class ToneToggle extends LitElement {
 	updated(changed){
 		if (changed.has('checked')){
 			this.dispatchEvent(new CustomEvent('change', { detail : this.checked, composed : true, bubbles : true }))
+
+			if (this.attribute){
+				this.dispatchEvent(new CustomEvent(this.attribute, { detail : this.checked, composed : true, bubbles : true }))
+			}
 		}
 	}
 
