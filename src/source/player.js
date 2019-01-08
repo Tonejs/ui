@@ -1,7 +1,7 @@
 import { LitElement, html } from '@polymer/lit-element'
 import '../rack/rack'
 import '../input/toggle'
-import '../input/play'
+import '../input/play-toggle'
 import './player-viz'
 import { ToneBinded } from '../rack/binded'
 
