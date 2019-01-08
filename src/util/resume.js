@@ -6,7 +6,7 @@ const silentAudio = 'data:audio/mp3;base64,//MkxAAHiAICWABElBeKPL/RANb2w+yiT1g/g
  */
 export async function resume(e){
 	if (Tone.context.state === 'suspended'){
-		await Tone.context.resume()
+		const contextPromise = Tone.context.resume()
 
 		//also play a silent audio file which unmutes iOS
 		const audioElement = document.createElement('audio')
@@ -15,10 +15,13 @@ export async function resume(e){
 		audioElement.loop = false
 		audioElement.src = silentAudio
 		audioElement.title = 'Tone.js Examples'
+		let elementPromise = Promise.resolve()
 		try {
-			await audioElement.play()
+			elementPromise = await audioElement.play()
 		} catch (e){
+			elementPromise = Promise.resolve()
 			console.log('did not start audio')
 		}
+		await Promise.all([elementPromise, contextPromise])
 	}
 }
