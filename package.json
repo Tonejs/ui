@@ -1,8 +1,8 @@
 {
   "name": "@tonejs/ui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Web Component interfaces for Tone.js",
-  "main": "build/tone-ui.js",
+  "main": "build/tonejs-ui.js",
   "scripts": {
     "watch": "concurrently \"webpack -w --mode=development\" \"http-server\"",
     "build": "webpack -p --mode=production",

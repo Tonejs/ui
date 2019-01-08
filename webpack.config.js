@@ -4,9 +4,8 @@ module.exports = {
 	context : resolve(__dirname, 'src'),
 	entry : ['core-js', './index.js'],
 	output : {
-		path : resolve(__dirname, '../Tone.js/build'),
-		// path : resolve(__dirname, 'build'),
-		filename : 'tone-ui.js'
+		path : resolve(__dirname, 'build'),
+		filename : 'tonejs-ui.js'
 	},
 	resolve : {
 		// modules : ['node_modules']
