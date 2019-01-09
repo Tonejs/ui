@@ -6,6 +6,7 @@
   "scripts": {
     "watch": "concurrently \"webpack -w --mode=development\" \"http-server\"",
     "build": "webpack -p --mode=production",
+    "increment": "node scripts/increment_version.js",
     "test": "mocha test/test.js --timeout=10000"
   },
   "author": "Yotam Mann",
