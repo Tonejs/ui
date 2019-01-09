@@ -8,7 +8,7 @@ module.exports = {
 			const page = await browser.newPage()
 			page.on('pageerror', e => error(e))
 
-			await page.goto(`file://${resolve(__dirname, '../html', `${url}.html`)}`, {
+			await page.goto(`http://localhost:9999/test/html/${url}.html`, {
 				waitUntil : 'networkidle0'
 			})
 			try {
