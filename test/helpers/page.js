@@ -4,7 +4,7 @@ const { resolve } = require('path')
 module.exports = {
 	getPage : async function(url, callback){
 		return new Promise(async (done, error) => {
-			const browser = await puppeteer.launch({ args : ['--disable-web-security'] })
+			const browser = await puppeteer.launch({ args : ['--disable-web-security', '--no-sandbox'] })
 			const page = await browser.newPage()
 			page.on('pageerror', e => error(e))
 
