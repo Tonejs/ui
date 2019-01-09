@@ -31,7 +31,7 @@ async function screenshotPage(page, name, crop=[0, 0, 800, 600]){
 			resemble(screenshotURL).compareTo(tmpScreenshotURL).onComplete(d => done(d))
 		})
 
-		expect(parseFloat(data.misMatchPercentage)).to.be.lte(0.5)
+		expect(parseFloat(data.misMatchPercentage)).to.be.lte(5)
 
 		//delete the screenshot at the end
 		await fs.remove(tmpScreenshotURL)
