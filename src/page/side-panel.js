@@ -19,9 +19,13 @@ class ToneSidePanel extends LitElement {
 	}
 
 	async fetchExamples(){
-		const response = await fetch('./js/ExampleList.json')
-		this.examples = await response.json()
-		this.requestUpdate()
+		try {
+			const response = await fetch('./js/ExampleList.json')
+			this.examples = await response.json()
+			this.requestUpdate()
+		} catch (e){
+			console.log('could not load example list')
+		}
 	}
 
 	updated(changed){
