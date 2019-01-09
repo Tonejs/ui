@@ -1,6 +1,5 @@
 import { LitElement, html } from '@polymer/lit-element'
 import AudioKeys from 'audiokeys'
-import fromMidi from 'music.note.from-midi'
 import { resume } from '../util/resume'
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -20,6 +19,10 @@ class ToneKeyboardNote extends LitElement {
 		}
 	}
 
+	fromMidi(midi){
+		return Tone.Midi(midi).toNote()
+	}
+
 	constructor(){
 		super()
 		this.color = '#eee'
@@ -36,7 +39,7 @@ class ToneKeyboardNote extends LitElement {
 			}
 			this.dispatchEvent(new CustomEvent(eventName, {
 				detail : {
-					name : fromMidi(this.note),
+					name : this.fromMidi(this.note),
 					midi : this.note,
 					velocity : this.active ? 1 : 0
 				},
@@ -129,7 +132,7 @@ class ToneKeyboardNote extends LitElement {
 						@keydown=${this.keydown.bind(this)}
 						@keyup=${this.keyup.bind(this)}
 						style="background-color: ${this.active ? this.activecolor : this.color};">
-							${fromMidi(this.note).replace('#', '♯')}
+							${this.fromMidi(this.note).replace('#', '♯')}
 						</button>` : html``}
 			</div>
 		`
