@@ -1,6 +1,7 @@
 /**
- *  @license https://www.gnu.org/licenses/gpl-3.0.html GPL-3.0
- *  @copyright 2019 Yotam Mann
+ *  @license 
+ *  https://www.gnu.org/licenses/gpl-3.0.html GPL-3.0
+ *  Copyright (c) 2019 Yotam Mann
  */
 
 import './theme.css'
