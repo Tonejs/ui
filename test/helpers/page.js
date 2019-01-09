@@ -11,10 +11,14 @@ module.exports = {
 			await page.goto(`file://${resolve(__dirname, '../html', `${url}.html`)}`, {
 				waitUntil : 'networkidle0'
 			})
-			
-			await callback(page)
-			await browser.close()
-			done()
+			try {
+				await callback(page)
+				done()
+				await browser.close()
+			} catch (e){
+				await browser.close()
+				error(e)
+			}
 		})
 	},
 	renderPage : async function(htmlString, callback){
