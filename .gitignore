@@ -3,3 +3,4 @@ build
 .DS_Store
 *.sublime-workspace
 *.sublime-project
+test/html/scratch.html
