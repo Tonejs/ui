@@ -5,7 +5,7 @@ const { expect } = require('chai')
 describe('tone-unmute', () => {
 
 	it('looks the same', () => {
-		return snapshotComponent('unmute', '<tone-unmute></tone-unmute>')
+		return snapshotComponent('unmute', '<tone-unmute></tone-unmute>', undefined, [700, 0, 100, 100])
 	})
 
 	/*it('is initially muted', () => {

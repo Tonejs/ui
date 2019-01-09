@@ -6,13 +6,13 @@ describe('tone-player', () => {
 		return snapshotComponent('player', '<tone-player></tone-player>', () => {
 			const player = new Tone.Player('https://tonejs.github.io/examples/audio/FWDL.mp3')
 			document.querySelector('tone-player').bind(player)
-		}, true)
+		}, undefined, true)
 	})
 
 	it('looks the same collapsed', () => {
 		return snapshotComponent('player-collapsed', '<tone-player collapsed></tone-player>', () => {
 			const player = new Tone.Player('https://tonejs.github.io/examples/audio/FWDL.mp3')
 			document.querySelector('tone-player').bind(player)
-		}, true)
+		}, undefined, true)
 	})
 })

@@ -10,6 +10,6 @@ describe('tone-select', () => {
 				<option value="3">three</option>
 				<option value="4">four</option>
 			</tone-select>
-		`)
+		`, undefined, [0, 0, 300, 100])
 	})
 })

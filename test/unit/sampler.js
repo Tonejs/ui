@@ -10,6 +10,6 @@ describe('tone-sampler', () => {
 				baseUrl : 'https://tonejs.github.io/examples/audio/casio/'
 			})
 			document.querySelector('tone-sampler').bind(sampler)
-		}, true)
+		}, undefined, true)
 	})
 })

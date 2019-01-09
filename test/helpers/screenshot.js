@@ -6,7 +6,7 @@ const { getPage } = require('./page')
 
 const FORCE_RECAPTURE = false
 
-async function screenshotPage(page, name){
+async function screenshotPage(page, name, crop=[0, 0, 800, 600]){
 	const tmpScreenshotURL = resolve(__dirname, '../screenshots', `${name}-tmp.png`)
 	const screenshotURL = resolve(__dirname, '../screenshots', `${name}.png`)
 
@@ -16,14 +16,22 @@ async function screenshotPage(page, name){
 		console.log('generating screenshot')
 	}
 
-	await page.screenshot({ path : recapture ? screenshotURL : tmpScreenshotURL })
+	await page.screenshot({ 
+		path : recapture ? screenshotURL : tmpScreenshotURL,
+		clip : {
+			x : crop[0],
+			y : crop[1],
+			width : crop[2],
+			height : crop[3]
+		}
+	})
 
 	if (!recapture){
 		const data = await new Promise(done => {
 			resemble(screenshotURL).compareTo(tmpScreenshotURL).onComplete(d => done(d))
 		})
 
-		expect(parseFloat(data.misMatchPercentage)).to.be.lte(10)
+		expect(parseFloat(data.misMatchPercentage)).to.be.lte(0.5)
 
 		//delete the screenshot at the end
 		await fs.remove(tmpScreenshotURL)
@@ -38,14 +46,18 @@ module.exports = {
 		})
 	},
 
-	snapshotComponent : async function(name, htmlString, callback=()=>{}, loading=false){
+	snapshotComponent : async function(name, htmlString, callback=()=>{}, crop=[0, 0, 800, 600], loading=false){
 		await getPage('snapshot_test', async page => {
+			await page.setViewport({
+				width : 800,
+				height : 600
+			})
 			await page.evaluate(str => document.body.innerHTML = str, htmlString)
 			await page.evaluate(callback)
 			if (loading){
 				await page.evaluate(async () => await Tone.loaded())
 			}
-			await screenshotPage(page, name)
+			await screenshotPage(page, name, crop)
 		})
 	}
 }

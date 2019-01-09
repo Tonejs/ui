@@ -9,6 +9,6 @@ describe('tone-select-attribute', () => {
 				<option value="2">two</option>
 				<option value="3">three</option>
 				<option value="4">four</option>
-			</tone-select-attribute>`)
+			</tone-select-attribute>`, undefined, [0, 0, 800, 100])
 	})
 })
