@@ -31,7 +31,6 @@
     "http-server": "^0.11.1",
     "lit-html": "^0.14.0",
     "mocha": "^5.2.0",
-    "music.note.from-midi": "git+https://github.com/danigb/music.note.fromMidi.git",
     "nested-object-assign": "^1.0.3",
     "node-resemble-js": "^0.2.0",
     "node-sass": "^4.10.0",
@@ -41,6 +40,7 @@
     "style-loader": "^0.23.1",
     "tinycolor2": "^1.4.1",
     "to-string-loader": "^1.1.5",
+    "tone": "next",
     "webmidi": "^2.3.0",
     "webpack": "^4.26.1",
     "webpack-cli": "^3.1.2"

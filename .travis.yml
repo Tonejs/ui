@@ -6,7 +6,6 @@ node_js:
 install:
 - npm install
 # test against the latest tone
-- npm install --no-save tone@next
 - git config --global user.email "travis@travis-ci.org"
 - git config --global user.name "Travis CI"
 before_script: npm run build
