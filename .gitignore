@@ -4,3 +4,4 @@ build
 *.sublime-workspace
 *.sublime-project
 test/html/scratch.html
+*-tmp.png
