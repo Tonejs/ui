@@ -48,7 +48,7 @@ class ToneReverb extends ToneEffect {
 				max="4"
 				value="1"></tone-slider>
 			<tone-slider 
-				label="Predealy"
+				label="Predelay"
 				attribute="preDelay"
 				min="0.001"
 				max="0.1"
