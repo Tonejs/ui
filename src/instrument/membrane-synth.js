@@ -3,12 +3,14 @@ import '../component/envelope'
 import '../component/frequency-envelope'
 import '../rack/rack'
 import { ToneInstrument } from './instrument'
+import { presets } from './membrane-synth-presets'
 
 class ToneMembraneSynth extends ToneInstrument {
 
 	constructor(){
 		super()
 		this.label = 'MembraneSynth'
+		this.presets = JSON.stringify(presets)
 	}
 
 	renderAttributes(){
