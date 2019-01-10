@@ -1,5 +1,6 @@
 import { LitElement, html } from '@polymer/lit-element'
 import '../viz/waveform'
+import './start-context'
 
 class ToneDemo extends LitElement {
 
@@ -54,10 +55,16 @@ class ToneDemo extends LitElement {
 					font-size: var(--title-font-size);
 				}
 
+				tone-start-context {
+					position: fixed;
+					top: 10px;
+					right: 10px;
+				}
+
 			</style>
 			<div id="container">
 				<tone-waveform></tone-waveform>
-				${this.autoplay ? html`<tone-unmute novolume></tone-unmute>` : html``}
+				${this.autoplay ? html`<tone-start-context></tone-start-context>` : html``}
 				<div id="content">
 					<slot></slot>
 				</div>
