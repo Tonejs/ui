@@ -3,13 +3,14 @@ import '../source/oscillator'
 import '../component/envelope'
 import '../input/slider'
 import { ToneInstrument } from './instrument'
+import { presets } from './fm-synth-presets'
 
 class ToneFMSynth extends ToneInstrument {
 
 	constructor(){
 		super()
 		this.label = 'FMSynth'
-		// this.presets = JSON.stringify(presets)
+		this.presets = JSON.stringify(presets)
 	}
 	
 	renderAttributes(){

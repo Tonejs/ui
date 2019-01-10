@@ -3,12 +3,14 @@ import '../component/envelope'
 import '../component/frequency-envelope'
 import '../rack/rack'
 import { ToneInstrument } from './instrument'
+import { presets } from './metal-synth-presets'
 
 class ToneMetalSynth extends ToneInstrument {
 
 	constructor(){
 		super()
 		this.label = 'MetalSynth'
+		this.presets = JSON.stringify(presets)
 	}
 
 	renderAttributes(){
