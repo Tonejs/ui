@@ -46,6 +46,7 @@ import './page/explanation'
 import './page/loader'
 import './page/side-panel'
 import './page/example'
+import './page/demo'
 
 import './viz/oscilloscope'
 import './viz/fft'
