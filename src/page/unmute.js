@@ -16,6 +16,7 @@ class ToneUnmute extends ToneBinded {
 			suspended : { type : Boolean },
 			muted : { type : Boolean },
 			focused : { type : Boolean },
+			novolume : { type : Boolean }
 		}
 	}
 
@@ -34,7 +35,7 @@ class ToneUnmute extends ToneBinded {
 		if (changed.has('muted')){
 			Tone.Master.mute = this.muted
 			const volume = this.shadowRoot.querySelector('#volume')
-			if (!this.muted && volume.min == volume.value){
+			if (!this.novolume && !this.muted && volume.min == volume.value){
 				volume.value = 0
 			}
 		}
@@ -80,7 +81,7 @@ class ToneUnmute extends ToneBinded {
 					box-shadow: var(--shadow-medium);
 				}
 
-				#container:hover, #container[focused] {
+				#container:hover:not([novolume]), #container[focused]:not([novolume]) {
 					width: 144px;
 				}
 
@@ -118,7 +119,7 @@ class ToneUnmute extends ToneBinded {
 				}
 
 			</style>
-			<div id="container" ?focused=${this.focused}>
+			<div id="container" ?focused=${this.focused} ?novolume=${this.novolume}>
 				<button 
 					@blur=${e => this.focused = false}
 					@focus=${e => this.focused = true}
@@ -127,12 +128,14 @@ class ToneUnmute extends ToneBinded {
 					${this.suspended || this.muted ? speakerOff : speakerOn}
 				</button>
 
-				<tone-slider 
-					@blur=${e => this.focused = false}
-					@focus=${e => this.focused = true}
-					id="volume"
-					@change=${this._adjustVolume.bind(this)}
-					bare min="-60" max="0" value="0"></tone-slider>
+				${!this.novolume ? html`
+					<tone-slider 
+						@blur=${e => this.focused = false}
+						@focus=${e => this.focused = true}
+						id="volume"
+						@change=${this._adjustVolume.bind(this)}
+						bare min="-60" max="0" value="0"></tone-slider>` : html``}
+				
 			</div>
 		`
 	}
