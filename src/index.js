@@ -28,6 +28,7 @@ import './instrument/metal-synth'
 import './instrument/membrane-synth'
 import './instrument/noise-synth'
 import './instrument/fm-synth'
+import './instrument/am-synth'
 import './instrument/sampler'
 import './instrument/duo-synth'
 
