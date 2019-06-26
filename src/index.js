@@ -48,6 +48,9 @@ import './page/side-panel'
 import './page/example'
 import './page/demo'
 
+import './midi/piano-roll'
+import './midi/midi-track'
+
 import './viz/oscilloscope'
 import './viz/fft'
 import './viz/loop'

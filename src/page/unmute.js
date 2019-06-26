@@ -134,7 +134,7 @@ class ToneUnmute extends ToneBinded {
 						@focus=${e => this.focused = true}
 						id="volume"
 						@change=${this._adjustVolume.bind(this)}
-						bare min="-60" max="0" value="0"></tone-slider>` : html``}
+						inline min="-60" max="0" value="0"></tone-slider>` : html``}
 				
 			</div>
 		`

@@ -89,9 +89,9 @@
 		}
 
 		#circle {
-			--computed-thumb-height: var(--thumb-height, 24px);
-			--computed-thumb-width: var(--thumb-width, 24px);
-			border-radius: 2px;
+			--computed-thumb-height: var(--thumb-height, 22px);
+			--computed-thumb-width: var(--thumb-width, 22px);
+			border-radius: 50%;
 			width: var(--computed-thumb-width);
 			height: var(--computed-thumb-height);
 			top: calc((20px - var(--computed-thumb-height)) / 2);

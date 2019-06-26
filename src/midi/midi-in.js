@@ -7,6 +7,8 @@ export class ToneMidiIn extends LitElement {
 	constructor(){
 		super()
 
+		this._previousInput = null
+
 		WebMidi.enable(e => {
 			if (e){
 				error(e)
@@ -18,7 +20,7 @@ export class ToneMidiIn extends LitElement {
 			})
 			WebMidi.addListener('disconnected', e => {
 				this.requestUpdate()
-			})
+			}) 
 		})
 	}
 
@@ -30,6 +32,11 @@ export class ToneMidiIn extends LitElement {
 	}
 
 	_connectMidi(e){
+
+		if (this._previousInput){
+			this._previousInput.removeListener()
+		}
+
 		if (e.target.value === 'none'){
 			this.shadowRoot.querySelector('#light').classList.remove('connected')
 			return
@@ -44,6 +51,7 @@ export class ToneMidiIn extends LitElement {
 			this.dispatchEvent(new CustomEvent('noteon', {
 				detail : {
 					name, midi, 
+					timestamp : e.timestamp,
 					velocity : e.velocity
 				},
 				composed : true,
@@ -57,6 +65,7 @@ export class ToneMidiIn extends LitElement {
 			this.dispatchEvent(new CustomEvent('noteoff', {
 				detail : {
 					name, midi, 
+					timestamp : e.timestamp,
 					velocity : e.velocity
 				},
 				composed : true,
@@ -71,6 +80,8 @@ export class ToneMidiIn extends LitElement {
 					this.emit('pedal', { down, originalEvent : e })
 				}*/
 		})
+
+		this._previousInput = input
 	}
 
 	render(){

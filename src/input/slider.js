@@ -16,7 +16,7 @@ class ToneSlider extends LitElement {
 			units : { type : String },
 			integer : { type : Boolean },
 			attribute : { type : String },
-			bare : { type : Boolean },
+			inline : { type : Boolean },
 		}
 	}
 
@@ -29,7 +29,7 @@ class ToneSlider extends LitElement {
 		this.exp = 1
 		this.anchor = 'left'
 		this.integer = false
-		this.bare = false
+		this.inline = false
 		this._setThrottle = -1
 	}
 
@@ -139,9 +139,9 @@ class ToneSlider extends LitElement {
 				${sliderStyle}
 			</style>
 			<div id="container" @keydown=${e => e.key === 'Backspace' && typeof this.default !== 'undefined' ? this.value = this.default : '' }>
-				<label ?hidden=${this.bare} for="value">${this.label}</label>
-				<span ?hidden=${this.bare} id="units">${this.units}</span>
-				<input ?hidden=${this.bare} name="value" type="number"
+				<label for="value">${this.label}</label>
+				<span ?hidden=${this.inline} id="units">${this.units}</span>
+				<input ?hidden=${this.inline} name="value" type="number"
 					@change=${this._numberInput.bind(this)}
 					.min=${this.min}
 					.max=${this.max}

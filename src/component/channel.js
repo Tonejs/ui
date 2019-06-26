@@ -127,7 +127,7 @@ export class ToneChannel extends ToneBinded {
 					</tone-volume-slider>
 				</div>
 				<tone-slider
-					bare
+					inline
 					min="-1"
 					max="1"
 					default="0"

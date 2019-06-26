@@ -68,7 +68,7 @@ class TonePosition extends LitElement {
 					@input=${this._change.bind(this)}
 					.min=${this.min}
 					.max=${this.max}
-					bare>
+					inline>
 				</tone-slider>
 			</div>
 		`

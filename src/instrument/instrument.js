@@ -54,7 +54,7 @@ export class ToneInstrument extends ToneBinded {
 					attribute="wet"
 					min="0"
 					max="1"
-					bare
+					inline
 					value="1"></tone-slider>
 			</div>
 		`

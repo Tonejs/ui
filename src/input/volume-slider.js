@@ -67,7 +67,7 @@ class ToneVolumeSlider extends LitElement {
 						exp="0.4"
 						.value="${this.value}"
 						@change=${e => this.value = e.detail}
-						bare></tone-slider>
+						inline></tone-slider>
 				</div>
 				<div id="number">${this.value >= 0 ? '+' : ''}${this.value.toFixed(0)} db</div>
 			</div>
