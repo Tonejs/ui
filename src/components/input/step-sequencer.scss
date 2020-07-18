@@ -1,0 +1,42 @@
+@import "../../gui/component/common.scss";
+
+:host {
+	width: 100%;
+}
+
+#container {
+	display: flex;
+	height: 40px;
+
+	.column {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		// transition: background-color 0.2s;
+
+		&[highlighted] {
+			// transition-duration: 0.1s;
+			background-color: rgba($orange, 0.5);
+
+			.cell:not([filled]) {
+				background-color: lighten($orange, 20%);
+			}
+			.cell[filled] {
+				transform: scale(1.2);
+			}
+		}
+
+		.cell {
+			@include outline;
+			margin: 2px;
+			flex: 1;
+			background-color: #aaa;
+			border: none;
+			// transition: transform 0.2s;
+
+			&[filled] {
+				background-color: black;
+			}
+		}
+	}
+}

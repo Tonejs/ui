@@ -1,0 +1,31 @@
+:host {
+	width: 100%;
+}
+
+#container {
+	display: block;
+	width: 100%;
+	
+	#label {
+		display: block;
+		width: 100%;
+
+		.value {
+			margin-left: 10px;
+			font-weight: bold;
+			float: right;
+		
+			.units {
+				font-weight: normal;
+			}
+		}
+	}
+	
+	
+	
+	mwc-slider {
+		display: block;
+		width: 100%;
+		--mdc-theme-secondary: black;
+	}
+}

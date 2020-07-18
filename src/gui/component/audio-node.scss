@@ -1,0 +1,99 @@
+@import "./common.scss";
+
+:host {
+	max-width: 320px;
+	width: 100%;
+	display: block;
+}
+
+#container {
+	font-family: $contentFont;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #ddd;
+
+	#title {
+		font-size: 18px !important;
+		font-family: $titleFont;
+	}
+
+	max-width: 320px;
+	width: 100%;
+
+	.value {
+		display: block;
+		margin-top: 4px;
+	}
+
+	details {
+		margin-top: 4px;
+		font-size: 14px;
+		line-height: 24px;
+
+		&.sub-value {
+			background-color: rgba(0, 0, 0, 0.05);
+			padding: 5px;
+		}
+
+		// &.sub-values {
+		// margin-left: 10px;
+		// }
+
+		#json {
+			font-size: 0.8em;
+			summary {
+				color: $orange;
+				padding-left: 10px;
+
+				mwc-icon {
+					--mdc-icon-size: 10px;
+				}
+			}
+			pre {
+				overflow: scroll;
+			}
+		}
+
+		summary {
+			// padding: 2px 2px 5px 2px;
+			list-style: none;
+
+			mwc-icon {
+				position: relative;
+				transform: translate(0px, 4px);
+				height: 20px;
+				font-size: 20px;
+				margin-left: 0px;
+			}
+
+			#download {
+				position: absolute;
+				right: 10px;
+				color: $lightGray;
+			}
+
+			&#title {
+				padding: 2px 2px 5px 2px;
+			}
+
+			&::-webkit-details-marker {
+				display: none;
+			}
+
+			&::marker {
+				display: none;
+			}
+
+			// &.sub-value {
+			// 	&::-webkit-details-marker {
+			// 		margin-left: 5px;
+			// 	}
+
+			// 	&::marker {
+			// 		margin-left: 5px;
+			// 	}
+			// }
+
+			@include focusHighlight;
+		}
+	}
+}

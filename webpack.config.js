@@ -1,45 +1,82 @@
-const { resolve } = require('path')
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { relative, basename, extname, resolve } = require("path");
+const glob = require("glob");
 
-module.exports = {
-	context : resolve(__dirname, 'src'),
-	entry : ['core-js', './index.js'],
-	output : {
-		path : resolve(__dirname, 'build'),
-		filename : 'tonejs-ui.js'
-	},
-	resolve : {
-		// modules : ['node_modules']
-	},
-	module : {
-		rules : [
-			{
-				test : /\.js$/,
-				exclude : /(node_modules)/,
-				use : {
-					loader : 'babel-loader',
-					// options : {
-					// 	presets : ['@babel/preset-env']
-					// }
-				}
+const examples = {};
+glob.sync(resolve(__dirname, "./examples/**/*.ts")).forEach((example) => {
+	const name = basename(example, extname(example));
+	examples[name] = "./" + relative(__dirname, example);
+});
+
+function createCommonConfig(output) {
+	return {
+		context: __dirname,
+		output: {
+			path: resolve(__dirname, output),
+			filename: "[name].js",
+		},
+		resolve: {
+			extensions: [".ts", ".js"],
+			alias: {
+				"@tonejs/gui": resolve(__dirname, "./src/gui/index.ts"),
+				// tone: resolve(__dirname, "../Tone.js/"),
 			},
-			{ 
-				test : /\.scss$/, 
-				use : [
-					'to-string-loader', 
-					'css-loader', 
-					'sass-loader?indentedSyntax=false'
-				]
-			},
-			{ 
-				test : /\.css$/, 
-				use : [
-					'style-loader',
-					'css-loader'
-				]
-			},
-		]
-	},
-	plugins : [
-		
-	]
+		},
+		externals: {
+			tone: "Tone",
+		},
+		module: {
+			rules: [
+				{
+					test: /\.ts$/,
+					exclude: /(node_modules)/,
+					use: {
+						loader: "ts-loader",
+					},
+				},
+				{
+					test: /\.scss$/,
+					use: [
+						"to-string-loader",
+						"css-loader",
+						{
+							loader: "sass-loader",
+							options: {
+								sassOptions: {
+									indentedSyntax: false,
+									includePaths: ["node_modules"],
+								},
+							},
+						},
+					],
+				},
+				{
+					test: /\.css$/,
+					use: ["style-loader", "css-loader"],
+				},
+			],
+		},
+	};
 }
+
+module.exports = (env) => {
+	env = env || {};
+	env.output = env.output || "build";
+	return [
+		Object.assign({}, createCommonConfig(env.output), {
+			entry: {
+				components: "./src/components/index.ts",
+			},
+		}),
+		Object.assign({}, createCommonConfig(env.output), {
+			entry: {
+				gui: "./src/gui/index.ts",
+			},
+			output: {
+				path: resolve(__dirname, env.output),
+				filename: "tone-ui.js",
+				libraryTarget: "umd",
+			},
+		}),
+	];
+};

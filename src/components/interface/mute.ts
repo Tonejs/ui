@@ -1,0 +1,66 @@
+import { css, html, LitElement, property, customElement } from "lit-element";
+import { startContext } from "../util/start";
+import { context, getDestination } from "tone";
+import { classMap } from "lit-html/directives/class-map";
+// import "@material/mwc-icon";
+
+@customElement("tone-mute")
+export class ToneMuteButton extends LitElement {
+	@property({ type: Boolean })
+	muted = false;
+
+	@property({ type: Boolean })
+	suspended = true;
+
+	static get styles() {
+		return css`
+			:host {
+				position: absolute;
+				top: 5px;
+				right: 5px;
+			}
+			mwc-icon {
+				cursor: pointer;
+				color: black;
+				z-index: 100000;
+			}
+			mwc-icon.muted {
+				color: #ff4800;
+			}
+		`;
+	}
+
+	firstUpdated(props) {
+		super.firstUpdated(props);
+		setInterval(() => {
+			this.suspended = context.state === "suspended";
+		}, 100);
+	}
+
+	updated(changed) {
+		if (changed.has("muted")) {
+			getDestination().mute = this.muted;
+		}
+	}
+
+	private async _clicked() {
+		if (this.suspended) {
+			await startContext();
+		} else {
+			this.muted = !this.muted;
+		}
+	}
+
+	render() {
+		return html`
+			<mwc-icon
+				@click=${this._clicked.bind(this)}
+				class=${classMap({
+					muted: this.muted || this.suspended,
+				})}
+			>
+				${this.muted || this.suspended ? "volume_off" : "volume_up"}
+			</mwc-icon>
+		`;
+	}
+}

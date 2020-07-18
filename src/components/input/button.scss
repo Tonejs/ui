@@ -1,0 +1,52 @@
+@import "../../gui/component/common.scss";
+
+$buttonHeight: 30px;
+
+button {
+	display: block;
+	width: 100%;
+	cursor: pointer;
+	appearance: none;
+	-webkit-appearance: none;
+	height: $buttonHeight;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+	border: none;
+	font-size: 1em;
+	overflow: hidden;
+	background-color: #ddd;
+	margin-bottom: 10px;
+	@include outline;
+
+	&:hover {
+		background-color: #f0f;
+		box-shadow: 0 3px 6px rgba(255, 0, 255, 0.16),
+			0 3px 6px rgba(255, 0, 255, 0.23);
+		color: white;
+	}
+
+	&:active {
+		background-color: #f0f;
+		color: white;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		pointer-events: none !important;
+		color: #777;
+	}
+
+	&::slotted(svg) {
+		height: $buttonHeight;
+		display: inline-block;
+		transition: fill 0.1s;
+	}
+
+	&::slotted(*) {
+		pointer-events: none;
+	}
+
+	&:hover ::slotted(svg) {
+		fill: white;
+	}
+}

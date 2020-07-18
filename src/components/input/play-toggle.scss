@@ -1,0 +1,16 @@
+@import "./button.scss";
+
+tone-button {
+	display: block;
+
+	mwc-icon {
+		height: $buttonHeight;
+		--mdc-icon-size: #{$buttonHeight};
+		display: inline-block;
+		transition: color 0.1s;
+	}
+
+	&:hover mwc-icon {
+		color: white;
+	}
+}

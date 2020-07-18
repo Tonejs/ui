@@ -1,0 +1,40 @@
+@import "./common.scss";
+
+#container {
+	font-family: $titleFont;
+	width: calc(100% - 20px);
+	margin-bottom: 10px;
+
+	details {
+		width: 100%;
+
+		summary {
+			font-weight: bold;
+			font-size: 1.1em;
+			border-bottom: 1px solid black;
+			list-style: none;
+
+			mwc-icon {
+				position: relative;
+				transform: translate(0px, 4px);
+				height: 20px;
+				font-size: 20px;
+				margin-left: 0px;
+			}
+
+			&::-webkit-details-marker {
+				display: none;
+			}
+
+			&::marker {
+				display: none;
+			}
+		}
+
+		#contents {
+			$margin: 5px;
+			width: calc(100% - #{$margin});
+			margin-left: $margin;
+		}
+	}
+}

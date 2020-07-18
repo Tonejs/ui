@@ -1,0 +1,47 @@
+@import "./button.scss";
+
+tone-button {
+	position: relative;
+	display: block;
+
+	#ring {
+		width: 18px;
+		height: 18px;
+		position: absolute;
+		border-radius: 50%;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		border: 2px solid black;
+		box-sizing: border-box;
+		transition: all 0.1s;
+
+		#circle {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%) scale(1.1);
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+			transition: all 0.1s;
+			background-color: black;
+		}
+	}
+
+	&[triggered] #ring {
+		width: 25px;
+		height: 25px;
+		#circle {
+			width: 0px;
+			height: 0px;
+		}
+	}
+
+	&:hover #ring {
+		border-color: white;
+		#circle {
+			background-color: white;
+		}
+	}
+}

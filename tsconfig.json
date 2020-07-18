@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"baseUrl": "./",
+		"target": "es6",
+		"experimentalDecorators": true,
+		"module": "commonjs",
+		"noImplicitAny": false,
+		"noUnusedLocals": false,
+		"removeComments": false,
+		"outDir": "./build/esm",
+		"sourceMap": true,
+		"moduleResolution": "node",
+		"declaration": true
+	}
+}

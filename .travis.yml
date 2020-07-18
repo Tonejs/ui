@@ -2,21 +2,21 @@ sudo: false
 dist: trusty
 language: node_js
 node_js:
-- '9'
+    - "9"
 install:
-- npm install
-# test against the latest tone
-- git config --global user.email "travis@travis-ci.org"
-- git config --global user.name "Travis CI"
+    - npm install
+    # test against the latest tone
+    - git config --global user.email "travis@travis-ci.org"
+    - git config --global user.name "Travis CI"
 before_script: npm run build
-script: npm run test
+# script: npm run test
 before_deploy: npm run increment
 deploy:
-- provider: npm
-  skip_cleanup: true
-  email: yotammann@gmail.com
-  api_key: $NPM_TOKEN
-  on:
-    repo: Tonejs/ui
-    # don't publish on cron or PRs
-    condition: $TRAVIS_EVENT_TYPE != cron && $TRAVIS_EVENT_TYPE != pull_request
+    - provider: npm
+      skip_cleanup: true
+      email: yotammann@gmail.com
+      api_key: $NPM_TOKEN
+      on:
+          repo: Tonejs/ui
+          # don't publish on cron or PRs
+          condition: $TRAVIS_EVENT_TYPE != cron && $TRAVIS_EVENT_TYPE != pull_request

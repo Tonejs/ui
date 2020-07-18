@@ -1,0 +1,36 @@
+$titleFont: "Roboto", sans-serif;
+$contentFont: "Open Sans", sans-serif;
+
+$lightBlue: rgba(1, 135, 134, 0.05);
+$blue: #3833ed;
+$green: #1edf3e;
+$red: #ed3333;
+$purple: #7f33ed;
+$teal: #22dbc0;
+$pink: #ed33cf;
+$yellow: rgb(209, 196, 15);
+$darkGray: #616161;
+$gray: #8c8c8c;
+$lightGray: #ececec;
+$lighterGray: rgba($lightGray, 0.5);
+$orange: #f5871f;
+$lightPurple: #ecfbff;
+
+@mixin outline {
+	outline: 0px solid lighten($orange, 30%);
+
+	&:focus {
+		outline-width: 3px;
+	}
+}
+
+@mixin focusHighlight {
+	&:focus {
+		outline: none;
+		background-color: lighten($orange, 30%);
+	}
+}
+
+@function clamp($number, $min, $max) {
+	@return min(max($number, $min), $max);
+}
