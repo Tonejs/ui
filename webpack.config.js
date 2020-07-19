@@ -50,10 +50,10 @@ function createCommonConfig(output) {
 						},
 					],
 				},
-				{
-					test: /\.css$/,
-					use: ["style-loader", "css-loader"],
-				},
+				// {
+				// 	test: /\.css$/,
+				// 	use: ["style-loader", "css-loader"],
+				// },
 			],
 		},
 	};

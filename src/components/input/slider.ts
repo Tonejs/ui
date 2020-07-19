@@ -9,7 +9,7 @@ export class ToneSlider extends LitElement {
 	@property({ type: Number })
 	max = 100;
 
-	@property({ type: Number })
+	@property({ type: Number, reflect: true })
 	value = 50;
 
 	@property({ type: Number })
@@ -25,6 +25,18 @@ export class ToneSlider extends LitElement {
 		return css`
 			${unsafeCSS(style)}
 		`;
+	}
+
+	private onInput(e: MouseEvent) {
+		this.value = parseFloat((e.target as HTMLInputElement).value);
+		e.stopImmediatePropagation();
+		e.stopPropagation();
+		this.dispatchEvent(
+			new CustomEvent("input", {
+				composed: true,
+				detail: this.value,
+			})
+		);
 	}
 
 	private beautifyValue(value: number): string {

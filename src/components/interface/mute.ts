@@ -2,6 +2,7 @@ import { css, html, LitElement, property, customElement } from "lit-element";
 import { startContext } from "../util/start";
 import { context, getDestination } from "tone";
 import { classMap } from "lit-html/directives/class-map";
+// import { html } from "lit-html";
 // import "@material/mwc-icon";
 
 @customElement("tone-mute")
@@ -18,6 +19,13 @@ export class ToneMuteButton extends LitElement {
 				position: absolute;
 				top: 5px;
 				right: 5px;
+			}
+
+			button {
+				--webkit-appearance: none;
+				appearance: none;
+				border: none;
+				background-color: transparent;
 			}
 			mwc-icon {
 				cursor: pointer;
@@ -53,14 +61,15 @@ export class ToneMuteButton extends LitElement {
 
 	render() {
 		return html`
-			<mwc-icon
-				@click=${this._clicked.bind(this)}
-				class=${classMap({
-					muted: this.muted || this.suspended,
-				})}
-			>
-				${this.muted || this.suspended ? "volume_off" : "volume_up"}
-			</mwc-icon>
+			<button aria-label="mute" @click=${this._clicked}>
+				<mwc-icon
+					class=${classMap({
+						muted: this.muted || this.suspended,
+					})}
+				>
+					${this.muted || this.suspended ? "volume_off" : "volume_up"}
+				</mwc-icon>
+			</button>
 		`;
 	}
 }

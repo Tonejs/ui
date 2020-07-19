@@ -1,15 +1,14 @@
 {
 	"compilerOptions": {
-		"baseUrl": "./",
-		"target": "es6",
-		"experimentalDecorators": true,
-		"module": "commonjs",
-		"noImplicitAny": false,
 		"noUnusedLocals": false,
-		"removeComments": false,
-		"outDir": "./build/esm",
-		"sourceMap": true,
-		"moduleResolution": "node",
-		"declaration": true
+		"target": "es2015",
+		"module": "commonjs",
+		"experimentalDecorators": true,
+		"lib": ["ES2019", "dom"],
+		"baseUrl": ".",
+		"paths": {
+			"@tonejs/gui": ["src/gui/index"]
+			// "tone" : ["../../Tone.js"]
+		}
 	}
 }

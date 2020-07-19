@@ -1,6 +1,6 @@
 import { css, html, LitElement, unsafeCSS, customElement } from "lit-element";
-import * as WebMidi from "webmidi";
-// const WebMidi: import("webmidi").WebMidi = require("webmidi");
+// import * as WebMidi from "webmidi";
+const WebMidi: import("webmidi").WebMidi = require("webmidi");
 
 @customElement("tone-midi-in")
 export class ToneMidiIn extends LitElement {
