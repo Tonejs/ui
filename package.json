@@ -19,21 +19,25 @@
 		"sass-loader": "^9.0.2",
 		"style-loader": "^1.2.1",
 		"to-string-loader": "^1.1.6",
+		"tone": "^14.7.28",
 		"ts-loader": "^6.2.1",
 		"typescript": "^3.9.7",
 		"webpack": "^4.41.2",
-		"webpack-cli": "^3.1.2"
+		"webpack-cli": "^3.1.2",
+		"worker-loader": "^2.0.0"
 	},
 	"dependencies": {
 		"@material/mwc-icon": "^0.17.2",
 		"@material/mwc-slider": "^0.17.2",
+		"@tonejs/plot": "0.0.35",
 		"@types/node": "^14.0.23",
 		"audiokeys": "^0.1.1",
 		"color": "^3.1.2",
 		"deep-equal": "^2.0.3",
 		"lit-element": "^2.3.1",
 		"lit-html": "^1.2.1",
-		"tone": "^14.7.13",
+		"monaco-editor": "^0.20.0",
+		"strip-indent": "^3.0.0",
 		"webmidi": "^2.3.0"
 	},
 	"prettier": {

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.28/Tone.js"></script>
+		<link
+			href="https://fonts.googleapis.com/css?family=Material+Icons&display=block"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<tone-code>
+			<pre>
+				const player = new Tone.Player({
+					url: "https://tonejs.github.io/audio/berklee/gurgling_theremin_1.mp3",
+					loop: true,
+					autostart: true,
+				})
+				//create a distortion effect
+				const distortion = new Tone.Distortion(0.4).toDestination();
+				//connect a player to the distortion
+				player.connect(distortion);
+			</pre
+			>
+		</tone-code>
+		<script src="../build/code.js"></script>
+	</body>
+</html>

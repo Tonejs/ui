@@ -17,10 +17,6 @@ function createCommonConfig(output) {
 		},
 		resolve: {
 			extensions: [".ts", ".js"],
-			alias: {
-				"@tonejs/gui": resolve(__dirname, "./src/gui/index.ts"),
-				// tone: resolve(__dirname, "../Tone.js/"),
-			},
 		},
 		externals: {
 			tone: "Tone",
@@ -50,10 +46,10 @@ function createCommonConfig(output) {
 						},
 					],
 				},
-				// {
-				// 	test: /\.css$/,
-				// 	use: ["style-loader", "css-loader"],
-				// },
+				{
+					test: /\.css$/,
+					use: ["to-string-loader", "css-loader"],
+				},
 			],
 		},
 	};
@@ -66,6 +62,11 @@ module.exports = (env) => {
 		Object.assign({}, createCommonConfig(env.output), {
 			entry: {
 				components: "./src/components/index.ts",
+			},
+		}),
+		Object.assign({}, createCommonConfig(env.output), {
+			entry: {
+				code: "./src/code/index.ts",
 			},
 		}),
 		Object.assign({}, createCommonConfig(env.output), {
