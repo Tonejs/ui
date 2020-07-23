@@ -50,6 +50,10 @@ function createCommonConfig(output) {
 					test: /\.css$/,
 					use: ["to-string-loader", "css-loader"],
 				},
+				{
+					test: /\.ttf$/,
+					use: ["file-loader"],
+				},
 			],
 		},
 	};
