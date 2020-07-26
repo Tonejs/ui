@@ -28,6 +28,7 @@ export class SandboxCode extends LitElement {
 
 	private plot: HTMLElement = null;
 
+	@internalProperty()
 	private running = false;
 
 	/**
@@ -124,7 +125,11 @@ export class SandboxCode extends LitElement {
 
 	private async logOutput(data: any) {
 		if (Reflect.has(data, "console")) {
-			this.consoleData.push(data.console.join(" "));
+			this.consoleData.push(
+				data.console
+					.map((c) => JSON.stringify(c, undefined, "\t"))
+					.join(" ")
+			);
 			if (this.consoleData.length > 10) {
 				this.consoleData.shift();
 			}
@@ -133,9 +138,8 @@ export class SandboxCode extends LitElement {
 			const audio = ToneAudioBuffer.fromArray(data.audiobuffer);
 			this.plot = await Plot.signal(audio);
 			this.requestUpdate();
-			// document.body.appendChild(element);
-			// this.requestUpdate();
-			// this.response?.appendChild(element);
+			// stop the online context from running
+			this.running = false;
 		} else if (Reflect.has(data, "error")) {
 			this.error = data.error;
 			this.cancel();
@@ -174,15 +178,21 @@ export class SandboxCode extends LitElement {
 		}
 	}
 
-	async cancel() {
-		if (this.running) {
-			this.running = false;
-			this.plot = null;
-			this.iframe?.remove();
-			this.consoleData = [];
-			this.dispatchEvent(new CustomEvent("stop"));
-			this.requestUpdate();
+	updated(changed) {
+		if (changed.has("running")) {
+			if (this.running) {
+				this.consoleData = [];
+				this.requestUpdate();
+				this.plot = null;
+			} else {
+				this.iframe?.remove();
+				this.dispatchEvent(new CustomEvent("stop"));
+			}
 		}
+	}
+
+	async cancel() {
+		this.running = false;
 	}
 
 	static get styles() {
