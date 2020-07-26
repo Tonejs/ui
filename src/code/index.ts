@@ -39,16 +39,16 @@ export class ToneCode extends LitElement {
 	@internalProperty()
 	private loading = false;
 
+	@internalProperty()
+	private editorLoaded = false;
+
 	private editor?: StandaloneCodeEditor;
 
 	private async updateSlot() {
 		await monacoDidLoad;
 		if (!this.hasCode) {
-			const slotText = this.slotElement
-				?.assignedNodes()
-				.map((t) => t.textContent)
-				.filter((t) => t !== "")
-				.join("\n");
+			const slotText = this.slotElement?.assignedNodes()[0].parentElement
+				.textContent;
 			const editor = await createEditor(
 				this.codeElement,
 				stripIndent(slotText).trim()
@@ -65,6 +65,7 @@ export class ToneCode extends LitElement {
 			editor.onDidChangeModelContent(() => this.stop());
 			this.editor = editor;
 			this.hasCode = true;
+			this.editorLoaded = true;
 		}
 	}
 
@@ -106,8 +107,7 @@ export class ToneCode extends LitElement {
 				}
 				#code {
 					color: black;
-					display: inline-block;
-					font-family: "Courier New", Courier, monospace;
+					display: block;
 					position: relative;
 				}
 				.monaco-editor {
@@ -132,12 +132,20 @@ export class ToneCode extends LitElement {
 					left: 0px;
 					width: 100%;
 				}
+
+				#editor-loading {
+					font-size: 0.7em;
+					color: #aaa;
+				}
 			`,
 		];
 	}
 
 	render() {
 		return html`
+			<div id="editor-loading">
+				${!this.editorLoaded ? "loading editor..." : ""}
+			</div>
 			<div id="code">
 				${!this.hasCode
 					? html`<slot @slotchange=${this.updateSlot}></slot>`

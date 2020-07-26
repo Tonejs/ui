@@ -6,7 +6,7 @@
 	"module": "build/esm/index.js",
 	"types": "build/esm/index.d.ts",
 	"scripts": {
-		"build": "webpack -p --mode=development --env.output=./build",
+		"build": "webpack -p --env.output=./build",
 		"watch": "webpack --watch --mode=development --env.output=./build",
 		"increment": "node scripts/increment_version.js",
 		"copy": "cp ./build/{tone-ui.js,components.js} ../Tone.js/examples/js/"
