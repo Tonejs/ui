@@ -38,7 +38,6 @@
 		"lit-element": "^2.3.1",
 		"lit-html": "^1.2.1",
 		"monaco-editor": "^0.20.0",
-		"strip-indent": "^3.0.0",
 		"webmidi": "^2.3.0"
 	},
 	"prettier": {

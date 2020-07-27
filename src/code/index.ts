@@ -9,7 +9,6 @@ import {
 	internalProperty,
 	unsafeCSS,
 } from "lit-element";
-const stripIndent = require("strip-indent");
 const style = require("monaco-editor/min/vs/editor/editor.main.css");
 import { monacoDidLoad } from "./monaco";
 import { createEditor, StandaloneCodeEditor } from "./editor";
@@ -51,7 +50,7 @@ export class ToneCode extends LitElement {
 				.textContent;
 			const editor = await createEditor(
 				this.codeElement,
-				stripIndent(slotText).trim()
+				slotText.trim()
 			);
 			editor.addAction({
 				id: "save",
